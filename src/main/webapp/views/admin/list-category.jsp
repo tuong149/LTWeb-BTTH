@@ -13,12 +13,16 @@
         img { max-width: 100px; height: auto; }
         .center { display: inline-block; margin: 0 5px; text-decoration: none; padding: 5px 10px; background-color: #007bff; color: white; border-radius: 3px;}
         .center.delete { background-color: #dc3545; }
-        .add-btn { display: block; width: 150px; text-align: center; margin: 20px auto; padding: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;}
+        .add-btn { display: inline-block; width: 150px; text-align: center; margin: 20px auto; padding: 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;}
+        .logout-btn { display: inline-block; padding: 10px 20px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; float: right; margin-right: 10%;}
     </style>
 </head>
 <body>
     <h2 style="text-align:center;">Danh sách danh mục</h2>
-    <a href="<c:url value='/admin/category/add'/>" class="add-btn">Thêm mới</a>
+    <div style="width: 80%; margin: 0 auto;">
+        <a href="<c:url value='/admin/category/add'/>" class="add-btn">Thêm mới</a>
+        <a href="<c:url value='/logout'/>" class="logout-btn">Đăng xuất</a>
+    </div>
     
     <table>
         <thead>
