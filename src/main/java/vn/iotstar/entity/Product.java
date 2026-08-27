@@ -23,6 +23,9 @@ public class Product implements Serializable {
     @Column(name="price")
     private double price;
 
+    @Column(name="unit", columnDefinition ="NVARCHAR(50) NULL")
+    private String unit;
+
     @Column(name="images", columnDefinition ="NVARCHAR(255) NULL")
     private String images;
 
@@ -67,6 +70,14 @@ public class Product implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public String getImages() {

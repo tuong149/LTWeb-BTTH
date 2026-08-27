@@ -9,8 +9,8 @@ import java.util.Random;
 public class EmailService {
 
     // IMPORTANT: Replace with actual credentials for production use
-    private static final String SMTP_USER = "your-email@gmail.com";
-    private static final String SMTP_PASSWORD = "your-app-password";
+    private static final String SMTP_USER = "utemall.otp@gmail.com";
+    private static final String SMTP_PASSWORD = "qqap aogh fogt iipv";
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
 

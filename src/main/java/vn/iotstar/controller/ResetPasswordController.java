@@ -23,6 +23,13 @@ public class ResetPasswordController extends HttpServlet {
         UserService service = new UserServiceImpl();
         User user = service.getByEmail(email);
 
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            req.setAttribute("alert", "Mật khẩu mới không được để trống.");
+            req.setAttribute("email", email);
+            req.getRequestDispatcher("/views/reset-password.jsp").forward(req, resp);
+            return;
+        }
+
         if (user != null && user.getOtp() != null && user.getOtp().equals(otp)) {
             user.setPassword(newPassword);
             user.setOtp(null); // Clear OTP after success
