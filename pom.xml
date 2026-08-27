@@ -48,6 +48,13 @@
       <artifactId>mysql-connector-j</artifactId>
       <version>8.3.0</version>
     </dependency>
+
+    <!-- JPA / Hibernate -->
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>6.6.1.Final</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>ShoppingServletServiceMVC</finalName>

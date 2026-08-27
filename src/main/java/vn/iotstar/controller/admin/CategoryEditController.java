@@ -1,6 +1,6 @@
 package vn.iotstar.controller.admin;
 
-import vn.iotstar.model.Category;
+import vn.iotstar.entity.Category;
 import vn.iotstar.service.CategoryService;
 import vn.iotstar.service.impl.CategoryServiceImpl;
 import vn.iotstar.util.Constant;
@@ -53,9 +53,11 @@ public class CategoryEditController extends HttpServlet {
 
         try {
             int id = Integer.parseInt(idStr);
+            Category oldCategory = cateService.get(id); // Lấy cũ để giữ lại status và icon nếu không đổi
             Category category = new Category();
-            category.setId(id);
-            category.setName(name);
+            category.setCategoryId(id);
+            category.setCategoryname(name);
+            category.setStatus(oldCategory != null ? oldCategory.getStatus() : 1);
 
             Part part = req.getPart("icon");
             if (part != null && part.getSize() > 0) {
@@ -73,11 +75,12 @@ public class CategoryEditController extends HttpServlet {
                 }
 
                 part.write(Constant.DIR + "/" + filename);
-                category.setIcon(filename);
+                category.setImages(filename);
             } else {
                 // Keep the old icon if no new file uploaded
-                Category oldCategory = cateService.get(id);
-                category.setIcon(oldCategory.getIcon());
+                if (oldCategory != null) {
+                    category.setImages(oldCategory.getImages());
+                }
             }
 
             cateService.edit(category);

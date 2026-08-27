@@ -1,13 +1,13 @@
 package vn.iotstar.dao;
 
-import vn.iotstar.model.Category;
+import vn.iotstar.entity.Category;
 
 import java.util.List;
 
 public interface CategoryDao {
     void insert(Category category);
     void edit(Category category);
-    void delete(int id);
+    void delete(int id) throws Exception;
     Category get(int id);
     Category get(String name);
     List<Category> getAll();

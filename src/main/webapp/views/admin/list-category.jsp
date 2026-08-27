@@ -51,18 +51,18 @@
                     <tr>
                         <td>${STT.index + 1}</td>
                         <td>
-                            <c:url value="/image?fname=${cate.icon}" var="imgUrl"></c:url>
-                            <c:if test="${not empty cate.icon}">
+                            <c:url value="/image?fname=${cate.images}" var="imgUrl"></c:url>
+                            <c:if test="${not empty cate.images}">
                                 <img src="${imgUrl}" alt="icon" class="icon-img"/>
                             </c:if>
-                            <c:if test="${empty cate.icon}">
+                            <c:if test="${empty cate.images}">
                                 <span style="color: #999; font-style: italic;">Chưa có ảnh</span>
                             </c:if>
                         </td>
-                        <td style="font-weight: 500;">${cate.name}</td>
+                        <td style="font-weight: 500;">${cate.categoryname}</td>
                         <td class="action-links">
-                            <a href="<c:url value='/admin/category/edit?id=${cate.id}'/>" class="btn btn-primary">Sửa</a>
-                            <a href="<c:url value='/admin/category/delete?id=${cate.id}'/>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');">Xóa</a>
+                            <a href="<c:url value='/admin/category/edit?id=${cate.categoryId}'/>" class="btn btn-primary">Sửa</a>
+                            <a href="<c:url value='/admin/category/delete?id=${cate.categoryId}'/>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');">Xóa</a>
                         </td>
                     </tr>
                 </c:forEach>

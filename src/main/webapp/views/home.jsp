@@ -29,14 +29,14 @@
         <div class="grid-container">
             <c:forEach items="${cateList}" var="cate">
                 <div class="grid-card">
-                    <c:url value="/image?fname=${cate.icon}" var="imgUrl"></c:url>
-                    <c:if test="${not empty cate.icon}">
-                        <img src="${imgUrl}" alt="${cate.name}"/>
+                    <c:url value="/image?fname=${cate.images}" var="imgUrl"></c:url>
+                    <c:if test="${not empty cate.images}">
+                        <img src="${imgUrl}" alt="${cate.categoryname}"/>
                     </c:if>
-                    <c:if test="${empty cate.icon}">
+                    <c:if test="${empty cate.images}">
                         <img src="https://via.placeholder.com/200x150?text=No+Image" alt="No Image"/>
                     </c:if>
-                    <h3>${cate.name}</h3>
+                    <h3>${cate.categoryname}</h3>
                 </div>
             </c:forEach>
             

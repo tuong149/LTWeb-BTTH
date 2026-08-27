@@ -38,21 +38,21 @@
             </c:if>
 
             <form role="form" action="<c:url value='/admin/category/edit'/>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="${category.id}" />
+                <input type="hidden" name="id" value="${category.categoryId}" />
                 
                 <div class="form-group">
                     <label for="name">Tên danh mục:</label>
-                    <input type="text" id="name" name="name" class="form-control" value="${category.name}" required />
+                    <input type="text" id="name" name="name" class="form-control" value="${category.categoryname}" required />
                 </div>
                 
                 <div class="form-group">
                     <label>Ảnh đại diện hiện tại:</label>
                     <div class="current-img-box">
-                        <c:if test="${not empty category.icon}">
-                            <c:url value="/image?fname=${category.icon}" var="imgUrl"></c:url>
+                        <c:if test="${not empty category.images}">
+                            <c:url value="/image?fname=${category.images}" var="imgUrl"></c:url>
                             <img src="${imgUrl}" class="img-responsive" alt="icon"/>
                         </c:if>
-                        <c:if test="${empty category.icon}">
+                        <c:if test="${empty category.images}">
                             <p style="margin: 0; color: #888;">Chưa có ảnh</p>
                         </c:if>
                     </div>

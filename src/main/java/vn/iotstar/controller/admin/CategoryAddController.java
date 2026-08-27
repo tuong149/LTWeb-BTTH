@@ -1,6 +1,6 @@
 package vn.iotstar.controller.admin;
 
-import vn.iotstar.model.Category;
+import vn.iotstar.entity.Category;
 import vn.iotstar.service.CategoryService;
 import vn.iotstar.service.impl.CategoryServiceImpl;
 import vn.iotstar.util.Constant;
@@ -37,7 +37,8 @@ public class CategoryAddController extends HttpServlet {
 
         String name = req.getParameter("name");
         Category category = new Category();
-        category.setName(name);
+        category.setCategoryname(name);
+        category.setStatus(1); // Set default status to 1
 
         try {
             Part part = req.getPart("icon");
@@ -57,7 +58,7 @@ public class CategoryAddController extends HttpServlet {
                 }
 
                 part.write(Constant.DIR + "/" + filename);
-                category.setIcon(filename);
+                category.setImages(filename);
             }
 
             cateService.insert(category);

@@ -1,144 +1,120 @@
 package vn.iotstar.dao.impl;
 
-import vn.iotstar.connection.DBConnection;
+import vn.iotstar.config.JpaConfig;
 import vn.iotstar.dao.CategoryDao;
-import vn.iotstar.model.Category;
+import vn.iotstar.entity.Category;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class CategoryDaoImpl implements CategoryDao {
-    public Connection conn = null;
-    public PreparedStatement ps = null;
-    public ResultSet rs = null;
 
     @Override
     public void insert(Category category) {
-        String sql = "INSERT INTO category(categoryname, images) VALUES (?, ?)";
+        EntityManager enma = JpaConfig.getEntityManager();
+        EntityTransaction trans = enma.getTransaction();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, category.getName());
-            ps.setString(2, category.getIcon());
-            ps.executeUpdate();
+            trans.begin();
+            enma.persist(category); // insert vào bảng
+            trans.commit();
         } catch (Exception e) {
             e.printStackTrace();
+            trans.rollback();
+            throw e;
+        } finally {
+            enma.close();
         }
     }
 
     @Override
     public void edit(Category category) {
-        String sql = "UPDATE category SET categoryname = ?, images = ? WHERE id = ?";
+        EntityManager enma = JpaConfig.getEntityManager();
+        EntityTransaction trans = enma.getTransaction();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, category.getName());
-            ps.setString(2, category.getIcon());
-            ps.setInt(3, category.getId());
-            ps.executeUpdate();
+            trans.begin();
+            enma.merge(category); // update vào bảng
+            trans.commit();
         } catch (Exception e) {
             e.printStackTrace();
+            trans.rollback();
+            throw e;
+        } finally {
+            enma.close();
         }
     }
 
     @Override
-    public void delete(int id) {
-        String sql = "DELETE FROM category WHERE id = ?";
+    public void delete(int id) throws Exception {
+        EntityManager enma = JpaConfig.getEntityManager();
+        EntityTransaction trans = enma.getTransaction();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.executeUpdate();
+            trans.begin();
+            Category category = enma.find(Category.class, id);
+            if (category != null) {
+                enma.remove(category);
+            } else {
+                throw new Exception("Không tìm thấy Category để xóa");
+            }
+            trans.commit();
         } catch (Exception e) {
             e.printStackTrace();
+            trans.rollback();
+            throw e;
+        } finally {
+            enma.close();
         }
     }
 
     @Override
     public Category get(int id) {
-        String sql = "SELECT * FROM category WHERE id = ?";
+        EntityManager enma = JpaConfig.getEntityManager();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Category category = new Category();
-                category.setId(rs.getInt("id"));
-                category.setName(rs.getString("categoryname"));
-                category.setIcon(rs.getString("images"));
-                return category;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return enma.find(Category.class, id);
+        } finally {
+            enma.close();
         }
-        return null;
     }
 
     @Override
     public Category get(String name) {
-        String sql = "SELECT * FROM category WHERE categoryname = ?";
+        EntityManager enma = JpaConfig.getEntityManager();
+        String jpql = "SELECT c FROM Category c WHERE c.categoryname = :catname";
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, name);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Category category = new Category();
-                category.setId(rs.getInt("id"));
-                category.setName(rs.getString("categoryname"));
-                category.setIcon(rs.getString("images"));
-                return category;
+            TypedQuery<Category> query = enma.createQuery(jpql, Category.class);
+            query.setParameter("catname", name);
+            List<Category> results = query.getResultList();
+            if (results.isEmpty()) {
+                return null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return results.get(0);
+        } finally {
+            enma.close();
         }
-        return null;
     }
 
     @Override
     public List<Category> getAll() {
-        List<Category> categories = new ArrayList<>();
-        String sql = "SELECT * FROM category";
+        EntityManager enma = JpaConfig.getEntityManager();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Category category = new Category();
-                category.setId(rs.getInt("id"));
-                category.setName(rs.getString("categoryname"));
-                category.setIcon(rs.getString("images"));
-                categories.add(category);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            TypedQuery<Category> query = enma.createNamedQuery("Category.findAll", Category.class);
+            return query.getResultList();
+        } finally {
+            enma.close();
         }
-        return categories;
     }
 
     @Override
     public List<Category> search(String keyword) {
-        List<Category> categories = new ArrayList<>();
-        String sql = "SELECT * FROM category WHERE categoryname LIKE ?";
+        EntityManager enma = JpaConfig.getEntityManager();
+        String jpql = "SELECT c FROM Category c WHERE c.categoryname like :catname";
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, "%" + keyword + "%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Category category = new Category();
-                category.setId(rs.getInt("id"));
-                category.setName(rs.getString("categoryname"));
-                category.setIcon(rs.getString("images"));
-                categories.add(category);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            TypedQuery<Category> query = enma.createQuery(jpql, Category.class);
+            query.setParameter("catname", "%" + keyword + "%");
+            return query.getResultList();
+        } finally {
+            enma.close();
         }
-        return categories;
     }
 }
