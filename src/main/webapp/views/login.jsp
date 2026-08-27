@@ -11,6 +11,12 @@
 </head>
 <body>
     <div class="container">
+
+            <img src="<c:url value='/views/UTEMall.png'/>" alt="Logo" style="width: auto; height: 50px; display: block; margin: 0 auto; margin-bottom: 15px; margin-top: 15px"/>
+            <p class="text-center">Mua sắm tiện lợi</p>
+
+    </div>
+    <div class="container">
         <div class="card form-container">
             <h2>Đăng Nhập Vào Hệ Thống</h2>
 
