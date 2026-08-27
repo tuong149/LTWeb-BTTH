@@ -54,14 +54,26 @@ public class RegisterController extends HttpServlet {
             return;
         }
 
-        boolean isSuccess = service.register(username, password, email, fullname, phone);
+        // Generate OTP
+        String otp = vn.iotstar.service.EmailService.generateOtp();
+        
+        vn.iotstar.model.User user = new vn.iotstar.model.User();
+        user.setEmail(email);
+        user.setUserName(username);
+        user.setFullName(fullname);
+        user.setPassword(password);
+        user.setRoleid(2);
+        user.setPhone(phone);
+        user.setCreatedDate(new java.sql.Date(System.currentTimeMillis()));
+        user.setStatus(0); // Inactive
+        user.setOtp(otp);
 
-        if (isSuccess) {
-            resp.sendRedirect(req.getContextPath() + "/login");
-        } else {
-            alertMsg = "Lỗi hệ thống trong quá trình đăng ký!";
-            req.setAttribute("alert", alertMsg);
-            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
-        }
+        service.insert(user);
+        
+        // Send email
+        vn.iotstar.service.EmailService.sendOtpEmail(email, otp);
+
+        req.setAttribute("alert", "Đăng ký thành công! Vui lòng kiểm tra email để lấy mã OTP.");
+        resp.sendRedirect(req.getContextPath() + "/verify-otp?username=" + username);
     }
 }

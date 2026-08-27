@@ -14,12 +14,14 @@ public class User implements Serializable {
     private int roleid;
     private String phone;
     private Date createdDate;
+    private int status;
+    private String otp;
 
     public User() {
         super();
     }
 
-    public User(int id, String email, String userName, String fullName, String password, String avatar, int roleid, String phone, Date createdDate) {
+    public User(int id, String email, String userName, String fullName, String password, String avatar, int roleid, String phone, Date createdDate, int status, String otp) {
         super();
         this.id = id;
         this.email = email;
@@ -30,6 +32,8 @@ public class User implements Serializable {
         this.roleid = roleid;
         this.phone = phone;
         this.createdDate = createdDate;
+        this.status = status;
+        this.otp = otp;
     }
 
     public int getId() { return id; }
@@ -58,4 +62,10 @@ public class User implements Serializable {
 
     public Date getCreatedDate() { return createdDate; }
     public void setCreatedDate(Date createdDate) { this.createdDate = createdDate; }
+
+    public int getStatus() { return status; }
+    public void setStatus(int status) { this.status = status; }
+
+    public String getOtp() { return otp; }
+    public void setOtp(String otp) { this.otp = otp; }
 }

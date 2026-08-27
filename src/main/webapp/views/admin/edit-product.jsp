@@ -1,0 +1,83 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa sản phẩm</title>
+    <link rel="stylesheet" href="<c:url value='/assets/css/style.css'/>">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .current-image {
+            max-width: 150px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Chỉnh Sửa Sản Phẩm</h1>
+        <a href="<c:url value='/admin/product/list'/>" class="btn" style="color: white; border: 1px solid white;">Quay lại danh sách</a>
+    </div>
+
+    <div class="container" style="margin-top: 40px;">
+        <div class="form-container">
+            <c:if test="${not empty error}">
+                <div style="color: red; margin-bottom: 15px;">${error}</div>
+            </c:if>
+            
+            <form action="<c:url value='/admin/product/edit'/>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="productId" value="${product.productId}" />
+                <input type="hidden" name="oldImage" value="${product.images}" />
+                
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="productName" style="display: block; margin-bottom: 5px; font-weight: bold;">Tên sản phẩm</label>
+                    <input type="text" id="productName" name="productName" value="${product.productName}" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="price" style="display: block; margin-bottom: 5px; font-weight: bold;">Giá (VNĐ)</label>
+                    <input type="number" id="price" name="price" step="0.01" value="${product.price}" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="categoryId" style="display: block; margin-bottom: 5px; font-weight: bold;">Danh mục</label>
+                    <select id="categoryId" name="categoryId" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="">-- Chọn danh mục --</option>
+                        <c:forEach items="${categories}" var="cate">
+                            <option value="${cate.categoryId}" ${cate.categoryId == product.category.categoryId ? 'selected' : ''}>${cate.categoryname}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="description" style="display: block; margin-bottom: 5px; font-weight: bold;">Mô tả</label>
+                    <textarea id="description" name="description" rows="4" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">${product.description}</textarea>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label for="image" style="display: block; margin-bottom: 5px; font-weight: bold;">Hình ảnh (để trống nếu không đổi)</label>
+                    <input type="file" id="image" name="image" accept="image/*" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <c:if test="${not empty product.images}">
+                        <div style="margin-top: 10px;">
+                            <p style="margin-bottom: 5px; font-size: 14px; color: #666;">Ảnh hiện tại:</p>
+                            <img src="<c:url value='/image?fname=${product.images}'/>" class="current-image" alt="Product Image"/>
+                        </div>
+                    </c:if>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; font-size: 16px;">Cập Nhật Sản Phẩm</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

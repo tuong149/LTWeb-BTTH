@@ -22,7 +22,11 @@ public class DownloadImageController extends HttpServlet {
         String fileName = req.getParameter("fname");
         File file = new File(Constant.DIR + "/" + fileName);
         
-        resp.setContentType("image/jpeg");
+        String contentType = getServletContext().getMimeType(file.getName());
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+        resp.setContentType(contentType);
 
         if (file.exists()) {
             try (FileInputStream in = new FileInputStream(file);

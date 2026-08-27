@@ -23,6 +23,10 @@ public class HomeController extends HttpServlet {
         // Lấy danh sách các danh mục để hiển thị cho người dùng
         List<Category> cateList = cateService.getAll();
         req.setAttribute("cateList", cateList);
+
+        vn.iotstar.service.ProductService prodService = new vn.iotstar.service.impl.ProductServiceImpl();
+        java.util.List<vn.iotstar.entity.Product> topProducts = prodService.findTop10();
+        req.setAttribute("topProducts", topProducts);
         
         // Điều hướng tới trang home.jsp
         req.getRequestDispatcher("/views/home.jsp").forward(req, resp);

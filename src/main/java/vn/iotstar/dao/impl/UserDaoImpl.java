@@ -32,6 +32,8 @@ public class UserDaoImpl implements UserDao {
                 user.setRoleid(rs.getInt("roleid"));
                 user.setPhone(rs.getString("phone"));
                 user.setCreatedDate(rs.getDate("createdDate"));
+                user.setStatus(rs.getInt("status"));
+                user.setOtp(rs.getString("otp"));
                 return user;
             }
         } catch (Exception e) {
@@ -42,7 +44,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void insert(User user) {
-        String sql = "INSERT INTO User(email, username, fullname, password, avatar, roleid, phone, createdDate) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO User(email, username, fullname, password, avatar, roleid, phone, createdDate, status, otp) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
             conn = new DBConnection().getConnection();
             ps = conn.prepareStatement(sql);
@@ -54,6 +56,8 @@ public class UserDaoImpl implements UserDao {
             ps.setInt(6, user.getRoleid());
             ps.setString(7, user.getPhone());
             ps.setDate(8, user.getCreatedDate());
+            ps.setInt(9, user.getStatus());
+            ps.setString(10, user.getOtp());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,5 +116,55 @@ public class UserDaoImpl implements UserDao {
             conn.close();
         } catch (Exception ex) { ex.printStackTrace(); }
         return duplicate;
+    }
+
+    @Override
+    public void update(User user) {
+        String sql = "UPDATE User SET email=?, fullname=?, password=?, avatar=?, roleid=?, phone=?, status=?, otp=? WHERE username=?";
+        try {
+            conn = new DBConnection().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getFullName());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getAvatar());
+            ps.setInt(5, user.getRoleid());
+            ps.setString(6, user.getPhone());
+            ps.setInt(7, user.getStatus());
+            ps.setString(8, user.getOtp());
+            ps.setString(9, user.getUserName());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        String sql = "SELECT * FROM User WHERE email = ?";
+        try {
+            conn = new DBConnection().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setUserName(rs.getString("username"));
+                user.setFullName(rs.getString("fullname"));
+                user.setPassword(rs.getString("password"));
+                user.setAvatar(rs.getString("avatar"));
+                user.setRoleid(rs.getInt("roleid"));
+                user.setPhone(rs.getString("phone"));
+                user.setCreatedDate(rs.getDate("createdDate"));
+                user.setStatus(rs.getInt("status"));
+                user.setOtp(rs.getString("otp"));
+                return user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

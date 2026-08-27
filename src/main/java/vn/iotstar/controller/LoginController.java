@@ -48,6 +48,17 @@ public class LoginController extends HttpServlet {
         User user = service.login(username, password);
 
         if (user != null) {
+            if (user.getStatus() == 0) {
+                // Generate and send new OTP
+                String otp = vn.iotstar.service.EmailService.generateOtp();
+                user.setOtp(otp);
+                service.update(user);
+                vn.iotstar.service.EmailService.sendOtpEmail(user.getEmail(), otp);
+                
+                req.setAttribute("alert", "Tài khoản chưa được kích hoạt. Mã OTP mới đã được gửi đến email của bạn.");
+                req.getRequestDispatcher("/views/verify-otp.jsp").forward(req, resp);
+                return;
+            }
             HttpSession session = req.getSession(true);
             session.setAttribute("account", user);
             resp.sendRedirect(req.getContextPath() + "/waiting");

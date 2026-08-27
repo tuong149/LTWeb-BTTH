@@ -39,6 +39,9 @@
             </form>
 
             <p class="text-center mt-3">
+                <a href="${pageContext.request.contextPath}/forgot-password">Quên mật khẩu?</a>
+            </p>
+            <p class="text-center mt-1">
                 Chưa có tài khoản? <a href="${pageContext.request.contextPath}/register">Đăng ký ngay</a>
             </p>
         </div>

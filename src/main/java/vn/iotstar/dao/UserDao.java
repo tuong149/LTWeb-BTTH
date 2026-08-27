@@ -8,4 +8,6 @@ public interface UserDao {
     boolean checkExistEmail(String email);
     boolean checkExistUsername(String username);
     boolean checkExistPhone(String phone);
+    void update(User user);
+    User getByEmail(String email);
 }

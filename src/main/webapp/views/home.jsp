@@ -44,6 +44,34 @@
                 <p class="text-center" style="grid-column: 1 / -1;">Hiện chưa có danh mục sản phẩm nào!</p>
             </c:if>
         </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px;">
+            <h2>Top 10 Sản Phẩm Mới Nhất</h2>
+            <a href="<c:url value='/product'/>" class="btn btn-primary" style="background-color: #f8f9fa; color: #333; border: 1px solid #ddd;">Xem tất cả ></a>
+        </div>
+        
+        <div class="grid-container" style="margin-bottom: 50px;">
+            <c:forEach items="${topProducts}" var="prod">
+                <div class="grid-card" style="padding: 15px; border-radius: 8px;">
+                    <a href="<c:url value='/product/detail?id=${prod.productId}'/>" style="text-decoration: none; color: inherit;">
+                        <c:url value="/image?fname=${prod.images}" var="prodImgUrl"></c:url>
+                        <c:if test="${not empty prod.images}">
+                            <img src="${prodImgUrl}" alt="${prod.productName}" style="height: 150px; object-fit: cover; border-radius: 4px;"/>
+                        </c:if>
+                        <c:if test="${empty prod.images}">
+                            <div style="height: 150px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; color: #999;">Không có ảnh</div>
+                        </c:if>
+                        <h4 style="margin: 10px 0; font-size: 1.1rem; text-align: center;">${prod.productName}</h4>
+                        <p style="color: #e53935; font-weight: bold; text-align: center;">${prod.price} VNĐ</p>
+                    </a>
+                </div>
+            </c:forEach>
+            
+            <c:if test="${empty topProducts}">
+                <p class="text-center" style="grid-column: 1 / -1;">Hiện chưa có sản phẩm nào!</p>
+            </c:if>
+        </div>
     </div>
 </body>
 </html>
