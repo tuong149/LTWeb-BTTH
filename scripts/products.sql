@@ -3,6 +3,7 @@ CREATE TABLE `products` (
   `productName` nvarchar(255) DEFAULT NULL,
   `description` text,
   `price` double DEFAULT NULL,
+  `unit` nvarchar(50) DEFAULT NULL,
   `images` nvarchar(255) DEFAULT NULL,
   `status` int DEFAULT NULL,
   `categoryId` int DEFAULT NULL,

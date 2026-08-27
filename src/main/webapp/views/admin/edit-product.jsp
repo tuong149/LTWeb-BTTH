@@ -48,6 +48,11 @@
                     <label for="price" style="display: block; margin-bottom: 5px; font-weight: bold;">Giá (VNĐ)</label>
                     <input type="number" id="price" name="price" step="0.01" value="${product.price}" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
                 </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="unit" style="display: block; margin-bottom: 5px; font-weight: bold;">Đơn vị tính</label>
+                    <input type="text" id="unit" name="unit" value="${product.unit}" placeholder="Ví dụ: Cái, Hộp, Kg..." style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
                 
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label for="categoryId" style="display: block; margin-bottom: 5px; font-weight: bold;">Danh mục</label>

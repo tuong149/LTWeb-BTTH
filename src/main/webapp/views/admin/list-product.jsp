@@ -63,7 +63,7 @@
                             </c:if>
                         </td>
                         <td style="font-weight: 500;">${prod.productName}</td>
-                        <td>${prod.price}</td>
+                        <td>${prod.price} ${prod.unit != null ? prod.unit : ''}</td>
                         <td>${prod.category != null ? prod.category.categoryname : 'N/A'}</td>
                         <td class="action-links">
                             <a href="<c:url value='/admin/product/edit?id=${prod.productId}'/>" class="btn btn-primary">Sửa</a>

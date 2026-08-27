@@ -45,11 +45,13 @@ public class ProductAddController extends HttpServlet {
         String name = req.getParameter("productName");
         String desc = req.getParameter("description");
         String priceStr = req.getParameter("price");
+        String unit = req.getParameter("unit");
         String categoryIdStr = req.getParameter("categoryId");
         
         Product product = new Product();
         product.setProductName(name);
         product.setDescription(desc);
+        product.setUnit(unit);
         try {
             product.setPrice(Double.parseDouble(priceStr));
         } catch (Exception e) {

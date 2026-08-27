@@ -110,7 +110,7 @@
                         ${product.category != null ? product.category.categoryname : 'Danh mục chung'}
                     </div>
                     <h1 class="product-title">${product.productName}</h1>
-                    <div class="product-price">${product.price} VNĐ</div>
+                    <div class="product-price">${product.price} VNĐ ${product.unit != null ? '/ ' += product.unit : ''}</div>
                     <div class="product-desc">
                         ${not empty product.description ? product.description : 'Chưa có mô tả cho sản phẩm này.'}
                     </div>

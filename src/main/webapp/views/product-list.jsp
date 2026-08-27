@@ -11,7 +11,7 @@
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            gap: 30px;
             margin-top: 20px;
         }
         .product-card {
@@ -89,7 +89,7 @@
                             <div style="height: 200px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; color: #999;">Không có ảnh</div>
                         </c:if>
                         <h4 style="margin: 15px 0 10px; font-size: 1.1rem;">${prod.productName}</h4>
-                        <p style="color: #e53935; font-weight: bold; font-size: 1.2rem; margin: 0;">${prod.price} VNĐ</p>
+                        <p style="color: #e53935; font-weight: bold; font-size: 1.2rem; margin: 0;">${prod.price} VNĐ ${prod.unit != null ? '/ ' += prod.unit : ''}</p>
                     </a>
                 </div>
             </c:forEach>

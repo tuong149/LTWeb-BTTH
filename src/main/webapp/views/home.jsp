@@ -44,7 +44,6 @@
                 <p class="text-center" style="grid-column: 1 / -1;">Hiện chưa có danh mục sản phẩm nào!</p>
             </c:if>
         </div>
-        </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px; margin-bottom: 20px;">
             <h2>Top 10 Sản Phẩm Mới Nhất</h2>
@@ -63,7 +62,7 @@
                             <div style="height: 150px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; color: #999;">Không có ảnh</div>
                         </c:if>
                         <h4 style="margin: 10px 0; font-size: 1.1rem; text-align: center;">${prod.productName}</h4>
-                        <p style="color: #e53935; font-weight: bold; text-align: center;">${prod.price} VNĐ</p>
+                        <p style="color: #e53935; font-weight: bold; text-align: center;">${prod.price} VNĐ ${prod.unit != null ? '/ ' += prod.unit : ''}</p>
                     </a>
                 </div>
             </c:forEach>

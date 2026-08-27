@@ -53,6 +53,7 @@ public class ProductEditController extends HttpServlet {
         String name = req.getParameter("productName");
         String desc = req.getParameter("description");
         String priceStr = req.getParameter("price");
+        String unit = req.getParameter("unit");
         String categoryIdStr = req.getParameter("categoryId");
         String oldImage = req.getParameter("oldImage");
         
@@ -64,6 +65,7 @@ public class ProductEditController extends HttpServlet {
 
         product.setProductName(name);
         product.setDescription(desc);
+        product.setUnit(unit);
         try {
             product.setPrice(Double.parseDouble(priceStr));
         } catch (Exception e) {
