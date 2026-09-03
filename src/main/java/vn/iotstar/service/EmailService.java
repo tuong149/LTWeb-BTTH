@@ -3,16 +3,24 @@ package vn.iotstar.service;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Properties;
 import java.util.Random;
 
 public class EmailService {
+    
+    private static final String SMTP_USER;
+    private static final String SMTP_PASSWORD;
+    private static final String SMTP_HOST;
+    private static final String SMTP_PORT;
 
-    // IMPORTANT: Replace with actual credentials for production use
-    private static final String SMTP_USER = "utemall.otp@gmail.com";
-    private static final String SMTP_PASSWORD = "qqap aogh fogt iipv";
-    private static final String SMTP_HOST = "smtp.gmail.com";
-    private static final String SMTP_PORT = "587";
+    static {
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+        SMTP_USER = dotenv.get("SMTP_USER", "utemall.otp@gmail.com");
+        SMTP_PASSWORD = dotenv.get("SMTP_PASSWORD", "");
+        SMTP_HOST = dotenv.get("SMTP_HOST", "smtp.gmail.com");
+        SMTP_PORT = dotenv.get("SMTP_PORT", "587");
+    }
 
     public static String generateOtp() {
         Random rnd = new Random();

@@ -1,170 +1,100 @@
 package vn.iotstar.dao.impl;
 
-import vn.iotstar.connection.DBConnection;
+import vn.iotstar.config.JpaConfig;
 import vn.iotstar.dao.UserDao;
-import vn.iotstar.model.User;
+import vn.iotstar.entity.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-    public Connection conn = null;
-    public PreparedStatement ps = null;
-    public ResultSet rs = null;
 
     @Override
     public User get(String username) {
-        String sql = "SELECT * FROM User WHERE username = ?";
+        EntityManager enma = JpaConfig.getEntityManager();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setEmail(rs.getString("email"));
-                user.setUserName(rs.getString("username"));
-                user.setFullName(rs.getString("fullname"));
-                user.setPassword(rs.getString("password"));
-                user.setAvatar(rs.getString("avatar"));
-                user.setRoleid(rs.getInt("roleid"));
-                user.setPhone(rs.getString("phone"));
-                user.setCreatedDate(rs.getDate("createdDate"));
-                user.setStatus(rs.getInt("status"));
-                user.setOtp(rs.getString("otp"));
-                return user;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            String jpql = "SELECT u FROM User u WHERE u.userName = :username";
+            TypedQuery<User> query = enma.createQuery(jpql, User.class);
+            query.setParameter("username", username);
+            List<User> users = query.getResultList();
+            if (users.isEmpty()) return null;
+            return users.get(0);
+        } finally {
+            enma.close();
         }
-        return null;
     }
 
     @Override
     public void insert(User user) {
-        String sql = "INSERT INTO User(email, username, fullname, password, avatar, roleid, phone, createdDate, status, otp) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        EntityManager enma = JpaConfig.getEntityManager();
+        EntityTransaction trans = enma.getTransaction();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getEmail());
-            ps.setString(2, user.getUserName());
-            ps.setString(3, user.getFullName());
-            ps.setString(4, user.getPassword());
-            ps.setString(5, user.getAvatar());
-            ps.setInt(6, user.getRoleid());
-            ps.setString(7, user.getPhone());
-            ps.setDate(8, user.getCreatedDate());
-            ps.setInt(9, user.getStatus());
-            ps.setString(10, user.getOtp());
-            ps.executeUpdate();
+            trans.begin();
+            enma.persist(user);
+            trans.commit();
         } catch (Exception e) {
             e.printStackTrace();
+            trans.rollback();
+            throw e;
+        } finally {
+            enma.close();
         }
     }
 
     @Override
     public boolean checkExistEmail(String email) {
-        boolean duplicate = false;
-        String query = "SELECT * FROM User WHERE email = ?";
-        try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, email);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                duplicate = true;
-            }
-            ps.close();
-            conn.close();
-        } catch (Exception ex) { ex.printStackTrace(); }
-        return duplicate;
+        return getByEmail(email) != null;
     }
 
     @Override
     public boolean checkExistUsername(String username) {
-        boolean duplicate = false;
-        String query = "SELECT * FROM User WHERE username = ?";
-        try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                duplicate = true;
-            }
-            ps.close();
-            conn.close();
-        } catch (Exception ex) { ex.printStackTrace(); }
-        return duplicate;
+        return get(username) != null;
     }
 
     @Override
     public boolean checkExistPhone(String phone) {
-        boolean duplicate = false;
-        String query = "SELECT * FROM User WHERE phone = ?";
+        EntityManager enma = JpaConfig.getEntityManager();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, phone);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                duplicate = true;
-            }
-            ps.close();
-            conn.close();
-        } catch (Exception ex) { ex.printStackTrace(); }
-        return duplicate;
+            String jpql = "SELECT u FROM User u WHERE u.phone = :phone";
+            TypedQuery<User> query = enma.createQuery(jpql, User.class);
+            query.setParameter("phone", phone);
+            return !query.getResultList().isEmpty();
+        } finally {
+            enma.close();
+        }
     }
 
     @Override
     public void update(User user) {
-        String sql = "UPDATE User SET email=?, fullname=?, password=?, avatar=?, roleid=?, phone=?, status=?, otp=? WHERE username=?";
+        EntityManager enma = JpaConfig.getEntityManager();
+        EntityTransaction trans = enma.getTransaction();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getEmail());
-            ps.setString(2, user.getFullName());
-            ps.setString(3, user.getPassword());
-            ps.setString(4, user.getAvatar());
-            ps.setInt(5, user.getRoleid());
-            ps.setString(6, user.getPhone());
-            ps.setInt(7, user.getStatus());
-            ps.setString(8, user.getOtp());
-            ps.setString(9, user.getUserName());
-            ps.executeUpdate();
+            trans.begin();
+            enma.merge(user);
+            trans.commit();
         } catch (Exception e) {
             e.printStackTrace();
+            trans.rollback();
+            throw e;
+        } finally {
+            enma.close();
         }
     }
 
     @Override
     public User getByEmail(String email) {
-        String sql = "SELECT * FROM User WHERE email = ?";
+        EntityManager enma = JpaConfig.getEntityManager();
         try {
-            conn = new DBConnection().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setEmail(rs.getString("email"));
-                user.setUserName(rs.getString("username"));
-                user.setFullName(rs.getString("fullname"));
-                user.setPassword(rs.getString("password"));
-                user.setAvatar(rs.getString("avatar"));
-                user.setRoleid(rs.getInt("roleid"));
-                user.setPhone(rs.getString("phone"));
-                user.setCreatedDate(rs.getDate("createdDate"));
-                user.setStatus(rs.getInt("status"));
-                user.setOtp(rs.getString("otp"));
-                return user;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            String jpql = "SELECT u FROM User u WHERE u.email = :email";
+            TypedQuery<User> query = enma.createQuery(jpql, User.class);
+            query.setParameter("email", email);
+            List<User> users = query.getResultList();
+            if (users.isEmpty()) return null;
+            return users.get(0);
+        } finally {
+            enma.close();
         }
-        return null;
     }
 }

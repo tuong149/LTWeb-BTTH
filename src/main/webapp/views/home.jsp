@@ -14,7 +14,8 @@
         <div>
             <c:if test="${not empty sessionScope.account}">
                 <span>Xin chào, <strong>${sessionScope.account.fullName != null ? sessionScope.account.fullName : sessionScope.account.userName}</strong></span>
-                <a href="<c:url value='/logout'/>" class="btn btn-danger" style="margin-left: 20px;">Đăng xuất</a>
+                <a href="<c:url value='/profile'/>" class="btn btn-primary" style="margin-left: 20px;">Trang cá nhân</a>
+                <a href="<c:url value='/logout'/>" class="btn btn-danger" style="margin-left: 10px;">Đăng xuất</a>
             </c:if>
             <c:if test="${empty sessionScope.account}">
                 <span>Xin chào Khách!</span>

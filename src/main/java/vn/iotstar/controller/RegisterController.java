@@ -57,7 +57,7 @@ public class RegisterController extends HttpServlet {
         // Generate OTP
         String otp = vn.iotstar.service.EmailService.generateOtp();
         
-        vn.iotstar.model.User user = new vn.iotstar.model.User();
+        vn.iotstar.entity.User user = new vn.iotstar.entity.User();
         user.setEmail(email);
         user.setUserName(username);
         user.setFullName(fullname);

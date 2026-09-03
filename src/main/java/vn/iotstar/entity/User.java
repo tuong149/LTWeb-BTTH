@@ -1,14 +1,27 @@
-package vn.iotstar.model;
+package vn.iotstar.entity;
 
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
+@Entity
+@Table(name = "User")
 @SuppressWarnings("serial")
 public class User implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    @Column(unique = true)
     private String email;
+    
+    @Column(unique = true, name="username")
     private String userName;
+    
+    @Column(name="fullname")
     private String fullName;
+    
     private String password;
     private String avatar;
     private int roleid;

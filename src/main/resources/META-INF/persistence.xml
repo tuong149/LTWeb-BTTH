@@ -8,20 +8,13 @@
         <class>vn.iotstar.entity.Category</class>
         <class>vn.iotstar.entity.Video</class>
         <class>vn.iotstar.entity.Product</class>
+        <class>vn.iotstar.entity.User</class>
 
         <properties>
-            <!-- Cấu hình kết nối MySQL -->
-            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mvc_3tier_db?useUnicode=true&amp;characterEncoding=UTF-8" />
-            <property name="jakarta.persistence.jdbc.user" value="root" />
-            <property name="jakarta.persistence.jdbc.password" value="14092006" />
-
             <!-- Hibernate Properties -->
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
-            <!-- Tự động tạo bảng hoặc cập nhật cấu trúc bảng -->
             <property name="hibernate.hbm2ddl.auto" value="update" />
-            <!-- Dialect cho MySQL -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
         </properties>
     </persistence-unit>

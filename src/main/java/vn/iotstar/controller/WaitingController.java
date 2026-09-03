@@ -1,6 +1,6 @@
 package vn.iotstar.controller;
 
-import vn.iotstar.model.User;
+import vn.iotstar.entity.User;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
