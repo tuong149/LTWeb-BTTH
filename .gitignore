@@ -39,3 +39,5 @@ build/
 .DS_Store
 # Environment Variables
 .env
+
+src/main/resources/config.properties

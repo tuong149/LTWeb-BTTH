@@ -3,7 +3,7 @@ package vn.iotstar.service;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import io.github.cdimascio.dotenv.Dotenv;
+import vn.iotstar.util.ConfigLoader;
 import java.util.Properties;
 import java.util.Random;
 
@@ -15,11 +15,10 @@ public class EmailService {
     private static final String SMTP_PORT;
 
     static {
-        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
-        SMTP_USER = dotenv.get("SMTP_USER", "utemall.otp@gmail.com");
-        SMTP_PASSWORD = dotenv.get("SMTP_PASSWORD", "");
-        SMTP_HOST = dotenv.get("SMTP_HOST", "smtp.gmail.com");
-        SMTP_PORT = dotenv.get("SMTP_PORT", "587");
+        SMTP_USER = ConfigLoader.get("SMTP_USER", "utemall.otp@gmail.com");
+        SMTP_PASSWORD = ConfigLoader.get("SMTP_PASSWORD", "");
+        SMTP_HOST = ConfigLoader.get("SMTP_HOST", "smtp.gmail.com");
+        SMTP_PORT = ConfigLoader.get("SMTP_PORT", "587");
     }
 
     public static String generateOtp() {

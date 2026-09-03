@@ -106,7 +106,7 @@
             </div>
 
             <div style="display: flex; gap: 10px;">
-                <a href="<c:url value='/home'/>" class="btn-update" style="background-color: #6c757d; text-align: center; text-decoration: none; display: inline-block;">Quay lại Trang chủ</a>
+                <a href="<c:url value='/waiting'/>" class="btn-update" style="background-color: #6c757d; text-align: center; text-decoration: none; display: inline-block;">Quay lại Trang chủ</a>
                 <button type="submit" class="btn-update">Cập Nhật</button>
             </div>
         </form>

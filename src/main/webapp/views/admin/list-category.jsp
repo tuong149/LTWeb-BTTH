@@ -26,8 +26,9 @@
         <div>
             <c:if test="${not empty sessionScope.account}">
                 <span>Admin: <strong>${sessionScope.account.fullName != null ? sessionScope.account.fullName : sessionScope.account.userName}</strong></span>
+                <a href="<c:url value='/profile'/>" class="btn btn-primary" style="margin-left: 20px;">Trang cá nhân</a>
             </c:if>
-            <a href="<c:url value='/admin/product/list'/>" class="btn" style="margin-left: 20px; color: white; border: 1px solid white;">QL Sản phẩm</a>
+            <a href="<c:url value='/admin/product/list'/>" class="btn" style="margin-left: 10px; color: white; border: 1px solid white;">QL Sản phẩm</a>
             <a href="<c:url value='/logout'/>" class="btn btn-danger" style="margin-left: 10px;">Đăng xuất</a>
         </div>
     </div>
