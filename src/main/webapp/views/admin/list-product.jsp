@@ -21,17 +21,6 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>Quản Trị Sản Phẩm</h1>
-        <div>
-            <c:if test="${not empty sessionScope.account}">
-                <span>Admin: <strong>${sessionScope.account.fullName != null ? sessionScope.account.fullName : sessionScope.account.userName}</strong></span>
-                <a href="<c:url value='/profile'/>" class="btn btn-primary" style="margin-left: 20px;">Trang cá nhân</a>
-            </c:if>
-            <a href="<c:url value='/admin/category/list'/>" class="btn" style="margin-left: 10px; color: white; border: 1px solid white;">QL Danh mục</a>
-            <a href="<c:url value='/logout'/>" class="btn btn-danger" style="margin-left: 10px;">Đăng xuất</a>
-        </div>
-    </div>
 
     <div class="container">
         <div class="flex-between" style="margin-top: 20px;">

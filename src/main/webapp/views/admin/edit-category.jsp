@@ -22,12 +22,6 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>Quản Trị Danh Mục</h1>
-        <div>
-            <a href="<c:url value='/logout'/>" class="btn btn-danger">Đăng xuất</a>
-        </div>
-    </div>
 
     <div class="container">
         <div class="card form-container">

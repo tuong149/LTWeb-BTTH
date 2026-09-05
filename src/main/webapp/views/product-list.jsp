@@ -61,19 +61,6 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>Cửa Hàng Của Chúng Tôi</h1>
-        <div>
-            <a href="<c:url value='/home'/>" class="btn" style="color: white; margin-right: 15px;">Trang chủ</a>
-            <c:if test="${not empty sessionScope.account}">
-                <span>Chào, <strong>${sessionScope.account.fullName != null ? sessionScope.account.fullName : sessionScope.account.userName}</strong></span>
-                <a href="<c:url value='/logout'/>" class="btn btn-danger" style="margin-left: 20px;">Đăng xuất</a>
-            </c:if>
-            <c:if test="${empty sessionScope.account}">
-                <a href="<c:url value='/login'/>" class="btn btn-primary" style="margin-left: 20px;">Đăng nhập</a>
-            </c:if>
-        </div>
-    </div>
 
     <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
         <h2 style="text-align: center; margin-bottom: 30px;">Tất Cả Sản Phẩm</h2>

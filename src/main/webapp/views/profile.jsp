@@ -70,7 +70,7 @@
             <div class="alert alert-danger">${error}</div>
         </c:if>
 
-        <form action="<c:url value='/profile'/>" method="post" enctype="multipart/form-data">
+        <form action="<c:url value='/profile'/>" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
             <div style="text-align: center;">
                 <c:if test="${not empty sessionScope.account.avatar}">
                     <img src="<c:url value='/image?fname=${sessionScope.account.avatar}'/>" alt="Avatar" class="avatar-preview">
@@ -93,11 +93,13 @@
             <div class="form-group">
                 <label>Họ và Tên (Full Name):</label>
                 <input type="text" name="fullname" class="form-control" value="${sessionScope.account.fullName}" required>
+                <div class="invalid-feedback">Vui lòng nhập họ và tên.</div>
             </div>
 
             <div class="form-group">
                 <label>Số điện thoại:</label>
-                <input type="text" name="phone" class="form-control" value="${sessionScope.account.phone}" required>
+                <input type="tel" name="phone" class="form-control" value="${sessionScope.account.phone}" pattern="[0-9]{10,11}" required>
+                <div class="invalid-feedback">Vui lòng nhập số điện thoại hợp lệ (10-11 số).</div>
             </div>
 
             <div class="form-group">

@@ -19,54 +19,55 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>Thêm Sản Phẩm Mới</h1>
-        <a href="<c:url value='/admin/product/list'/>" class="btn" style="color: white; border: 1px solid white;">Quay lại danh sách</a>
-    </div>
 
-    <div class="container" style="margin-top: 40px;">
-        <div class="form-container">
+    <div class="container mt-4">
+        <div class="card shadow p-4 mx-auto" style="max-width: 600px;">
             <c:if test="${not empty error}">
-                <div style="color: red; margin-bottom: 15px;">${error}</div>
+                <div class="alert alert-danger">${error}</div>
             </c:if>
             
-            <form action="<c:url value='/admin/product/add'/>" method="post" enctype="multipart/form-data">
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label for="productName" style="display: block; margin-bottom: 5px; font-weight: bold;">Tên sản phẩm</label>
-                    <input type="text" id="productName" name="productName" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <form action="<c:url value='/admin/product/add'/>" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="productName" class="form-label fw-bold">Tên sản phẩm</label>
+                    <input type="text" id="productName" name="productName" class="form-control" required>
+                    <div class="invalid-feedback">Vui lòng nhập tên sản phẩm.</div>
                 </div>
                 
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label for="price" style="display: block; margin-bottom: 5px; font-weight: bold;">Giá (VNĐ)</label>
-                    <input type="number" id="price" name="price" step="0.01" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <div class="mb-3">
+                    <label for="price" class="form-label fw-bold">Giá (VNĐ)</label>
+                    <input type="number" id="price" name="price" step="0.01" class="form-control" required>
+                    <div class="invalid-feedback">Vui lòng nhập giá hợp lệ.</div>
                 </div>
 
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label for="unit" style="display: block; margin-bottom: 5px; font-weight: bold;">Đơn vị tính</label>
-                    <input type="text" id="unit" name="unit" placeholder="Ví dụ: Cái, Hộp, Kg..." style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <div class="mb-3">
+                    <label for="unit" class="form-label fw-bold">Đơn vị tính</label>
+                    <input type="text" id="unit" name="unit" placeholder="Ví dụ: Cái, Hộp, Kg..." class="form-control" required>
+                    <div class="invalid-feedback">Vui lòng nhập đơn vị tính.</div>
                 </div>
                 
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label for="categoryId" style="display: block; margin-bottom: 5px; font-weight: bold;">Danh mục</label>
-                    <select id="categoryId" name="categoryId" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <div class="mb-3">
+                    <label for="categoryId" class="form-label fw-bold">Danh mục</label>
+                    <select id="categoryId" name="categoryId" class="form-select" required>
                         <option value="">-- Chọn danh mục --</option>
                         <c:forEach items="${categories}" var="cate">
                             <option value="${cate.categoryId}">${cate.categoryname}</option>
                         </c:forEach>
                     </select>
+                    <div class="invalid-feedback">Vui lòng chọn danh mục.</div>
                 </div>
                 
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label for="description" style="display: block; margin-bottom: 5px; font-weight: bold;">Mô tả</label>
-                    <textarea id="description" name="description" rows="4" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-bold">Mô tả</label>
+                    <textarea id="description" name="description" rows="4" class="form-control"></textarea>
                 </div>
 
-                <div class="form-group" style="margin-bottom: 25px;">
-                    <label for="image" style="display: block; margin-bottom: 5px; font-weight: bold;">Hình ảnh</label>
-                    <input type="file" id="image" name="image" accept="image/*" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <div class="mb-4">
+                    <label for="image" class="form-label fw-bold">Hình ảnh</label>
+                    <input type="file" id="image" name="image" accept="image/*" class="form-control" required>
+                    <div class="invalid-feedback">Vui lòng chọn hình ảnh.</div>
                 </div>
 
-                <button type="submit" class="btn btn-success" style="width: 100%; padding: 10px; font-size: 16px;">Lưu Sản Phẩm</button>
+                <button type="submit" class="btn btn-success w-100 fs-5">Lưu Sản Phẩm</button>
             </form>
         </div>
     </div>

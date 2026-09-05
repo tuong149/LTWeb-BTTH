@@ -25,17 +25,19 @@
                 <p class="text-danger">${alert}</p>
             </c:if>
 
-            <form action="${pageContext.request.contextPath}/login" method="post">
-                <div class="form-group">
-                    <label for="username">Tài khoản</label>
+            <form action="${pageContext.request.contextPath}/login" method="post" class="needs-validation" novalidate>
+                <div class="form-group mb-3">
+                    <label for="username" class="form-label">Tài khoản</label>
                     <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tài khoản" required />
+                    <div class="invalid-feedback">Vui lòng nhập tài khoản.</div>
                 </div>
-                <div class="form-group">
-                    <label for="password">Mật khẩu</label>
+                <div class="form-group mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
                     <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required />
+                    <div class="invalid-feedback">Vui lòng nhập mật khẩu.</div>
                 </div>
                 
-                <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                <button type="submit" class="btn btn-primary w-100 mt-2">Đăng nhập</button>
             </form>
 
             <p class="text-center mt-3">

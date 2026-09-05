@@ -24,10 +24,6 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>Chỉnh Sửa Sản Phẩm</h1>
-        <a href="<c:url value='/admin/product/list'/>" class="btn" style="color: white; border: 1px solid white;">Quay lại danh sách</a>
-    </div>
 
     <div class="container" style="margin-top: 40px;">
         <div class="form-container">
